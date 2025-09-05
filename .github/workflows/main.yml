@@ -17,14 +17,14 @@ jobs:
           base_uri: https://eu.ast.checkmarx.net/
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: --debug --report-format sarif \
-            --output-name ${{ steps.get-repo.outputs.repo }}
+          additional_params: --debug --report-format sarif # \
+            #--output-name ${{ steps.get-repo.outputs.repo }}
 #      - name: Upload XML Artifact
       
       - name: Upload Checkmarx SARIF report
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.get-repo.outputs.repo }}.sarif
+          sarif_file: cx_result.sarif #${{ steps.get-repo.outputs.repo }}.sarif
 #        with:
 #          name: cx_result.sarif
 #          path: cx_result.sarif
