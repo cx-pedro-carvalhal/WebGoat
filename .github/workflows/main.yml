@@ -12,18 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Checkmarx One CLI Action
         uses: checkmarx/ast-github-action@main #Github Action version
         with:
-          project_name: carvalhal/WebGoat
+          project_name: carvalhal/PedroWebGoat
           cx_tenant: cx_seg
           base_uri: https://eu.ast.checkmarx.net/
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
-          additional_params: --debug --report-format sarif # \
-            #--output-name ${{ steps.get-repo.outputs.repo }}
-#      - name: Upload XML Artifact
+          additional_params: --debug --report-format sarif \
+            --sca-exploitable-path true \
+            --scs-repo-url https://github.com/${{ github.repository }} \
+            --scs-repo-token ${{ secrets.GIT_PUSH_TOKEN }}
       
       - name: Upload Checkmarx SARIF report
         uses: github/codeql-action/upload-sarif@v3
