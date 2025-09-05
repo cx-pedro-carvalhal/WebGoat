@@ -23,8 +23,8 @@ jobs:
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
           additional_params: --debug --report-format sarif \           
             --scs-repo-url https://github.com/${{ github.repository }} \
-            --scs-repo-token ${{ secrets.GIT_PUSH_TOKEN }} #\
-             #--sca-exploitable-path true #\
+            --scs-repo-token ${{ secrets.GIT_PUSH_TOKEN }} \
+            --sca-exploitable-path true #\
       
       - name: Upload Checkmarx SARIF report
         uses: github/codeql-action/upload-sarif@v3
