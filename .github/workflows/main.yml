@@ -1,20 +1,26 @@
 name: Checkmarx One Scan
 on:
-  push:
+  pull_request:
+    types: [opened, reopened, synchronize]
     branches:
       - main
-permissions:
-  actions: read
-  contents: read
-  security-events: write
+      - master
+      - develop
+  #push:
+  #  branches:
+  #    - main
+#permissions:
+#  actions: read
+#  contents: read
+#  security-events: write
 jobs:
-  build:
+  scan:
+    name: scan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@main #Github Action version
+        uses: Checkmarx/ast-github-action@2.0.23 #Github Action version
         with:
           project_name: carvalhal/PedroWebGoat
           cx_tenant: cx_seg
